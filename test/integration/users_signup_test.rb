@@ -12,9 +12,11 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
   	
     end
     assert_template 'users/new'
+    assert_select 'div#<error_explanation>'
+    assert_select 'div.<alert alert-danger>'
   end
 
-  test "valid singup information" do
+  test "valid signup information" do
   	get signup_path
   	assert_difference "User.count", 1 do
   		post_via_redirect users_path, user: { name:  "Example User",
@@ -23,5 +25,8 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                                             password_confirmation: "password" }
     end
     assert_template 'users/show'
+    assert_not flash.nil?
   end
+
+
 end
