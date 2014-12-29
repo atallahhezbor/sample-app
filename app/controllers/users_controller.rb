@@ -27,11 +27,11 @@ class UsersController < ApplicationController
   end
 
   def edit
-    #@user = User.find(params[:id]) #taken care of in the correct_user method
+    #@user = User.find(params[:id]) #taken care of in the correct_user before action
   end
 
   def update
-    #@user = User.find(params[:id]) #taken care of in the correct_user method
+    #@user = User.find(params[:id]) #taken care of in the correct_user before action
     if @user.update_attributes(user_params)
       flash[:success] = "Profile Updated"
       redirect_to @user
