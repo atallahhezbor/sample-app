@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
   		log_in(user) #using the session helper
       # store a cookie if the remember me checkbox is checked
       params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-      redirect_to user #the users profile page
+      redirect_back_or user #redirect to the user page unless the is a stored forwarding location
   	else
   		flash.now[:danger] = "Invalid email or password"
   		render 'new'
