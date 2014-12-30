@@ -17,7 +17,7 @@ module SessionsHelper
     	@current_user ||= User.find_by(id: session[:user_id])
     elsif cookies.signed[:user_id] #otherwise use a cookie if it exists
      	user = User.find_by(id: cookies.signed[:user_id]) #find the corresponding user
-     	if user && user.authenticated?(cookies[:remember_token]) #if found and token mathches, login and return
+     	if user && user.authenticated?(:remember, cookies[:remember_token]) #if found and token mathches, login and return
      		log_in user 
      		@current_user = user
      	end

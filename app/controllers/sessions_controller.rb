@@ -6,10 +6,15 @@ class SessionsController < ApplicationController
   def create
   	user = User.find_by(email: params[:session][:email].downcase)
   	if user && user.authenticate(params[:session][:password])
-  		log_in(user) #using the session helper
-      # store a cookie if the remember me checkbox is checked
-      params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-      redirect_back_or user #redirect to the user page unless the is a stored forwarding location
+      if user.activated?
+  		  log_in(user) #using the session helper
+        # store a cookie if the remember me checkbox is checked
+        params[:session][:remember_me] == '1' ? remember(user) : forget(user)
+        redirect_back_or user #redirect to the user page unless the is a stored forwarding location
+      else
+        flash[:warning] = "Please activate your account before logging in"
+        redirect_to root_url
+      end
   	else
   		flash.now[:danger] = "Invalid email or password"
   		render 'new'
