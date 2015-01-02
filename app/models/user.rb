@@ -63,6 +63,10 @@ class User < ActiveRecord::Base
       reset_sent_at < 2.hours.ago
     end
 
+    def feed
+      microposts #Micropost.where("user_id=?", id)
+    end
+
     private
 
       def create_activation_digest

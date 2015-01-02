@@ -3,4 +3,8 @@
 	<span class="user"><%= link_to micropost.user.name, micropost.user%></span>
 	<span class="content"><%= micropost.content %></span>
 	<span class="timestamp"> Poaster <%= time_ago_in_words(micropost.created_at) %> ago.</span>
+    <% if current_user?(micropost.user) %>
+      <%= link_to "delete", micropost, method: :delete,
+                                       data: { confirm: "Delete this post?" } %>
+    <% end %>
 </li>

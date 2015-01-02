@@ -13,7 +13,7 @@ two:
 three:
   content: "thats a tbt"
   created_at: <%= 3.years.ago %>
-  user: atallah
+  user: elizabeth
 
 most_recent:
   content: "right now"
