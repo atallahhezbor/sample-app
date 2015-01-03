@@ -23,9 +23,19 @@ User.create!(name:  "Example User",
                activated_at: Time.zone.now)
 end
 
-users = User.order(:created_at).take(6) #selects the first 6 users
-#generate 50 microposts for each
+#selects the first 6 users
+#and generates 50 microposts for each
+users = User.order(:created_at).take(6) 
 50.times do
   content = Faker::Lorem.sentence(5)
   users.each { |user| user.microposts.create!(content: content) }
 end
+
+
+# Following relationships
+users = User.all
+user  = users.first
+following = users[2..50]
+followers = users[3..40]
+following.each { |followed| user.follow(followed) } #user follows users 2-50
+followers.each { |follower| follower.follow(user) } #users 3-40 follow user

@@ -1,0 +1,16 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+one:
+  follower: atallah
+  followed: ben
+
+two:
+  follower: atallah
+  followed: beans
+
+three:
+  follower: ben
+  followed: atallah
+
+four:
+  follower: mavrick
+  followed: atallah
