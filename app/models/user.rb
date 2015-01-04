@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
                                    dependent:   :destroy
   has_many :following, through: :active_relationships,  source: :followed
   has_many :followers, through: :passive_relationships #source is default rails convention
+  has_many :reposts, foreign_key: "reposter_id", dependent: :destroy
 
 	attr_accessor :remember_token, :activation_token, :reset_token
 	before_save {email.downcase!}
@@ -75,7 +76,10 @@ class User < ActiveRecord::Base
     def feed
       following_ids = "SELECT followed_id FROM relationships
                      WHERE  follower_id = :user_id"
+      reposts = "SELECT micropost_id FROM reposts
+                     WHERE reposter_id IN (#{following_ids})"                     
       Micropost.where("user_id IN (#{following_ids})
+                     OR id IN (#{reposts})
                      OR user_id = :user_id", user_id: id)
     end
 
@@ -90,6 +94,10 @@ class User < ActiveRecord::Base
     #true if the current user is following the other user
     def following?(other_user)
       following.include?(other_user)
+    end
+
+    def repost(micropost)
+      reposts.create(micropost_id: micropost.id)
     end
 
     private

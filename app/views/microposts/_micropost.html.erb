@@ -11,5 +11,10 @@
       		<%= link_to "delete", micropost, method: :delete,
             		                           data: { confirm: "Delete this post?" } %>
     	<% end %>
+    	<%= form_for(current_user.reposts.build(micropost_id: micropost.id),
+             remote: true) do |f| %>
+             <div> <%= hidden_field_tag :micropost_id, micropost.id %> </div>
+				<%= f.submit "Repost", class: "small-button" %>
+		<% end %>
     </span>
 </li>

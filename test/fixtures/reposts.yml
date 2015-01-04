@@ -1,0 +1,10 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+#ben retweets mav
+# one:
+#   micropost: four
+#   created_at: <%= 10.minutes.ago %>
+#   user: ben
+
+
+

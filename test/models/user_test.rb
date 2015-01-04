@@ -106,6 +106,18 @@ class UserTest < ActiveSupport::TestCase
   		atallah.microposts.each do |own_post|
   			assert atallah.feed.include?(own_post)
   		end
+
+  	end
+
+  	test "should see reposted posts" do
+  		atallah = users(:atallah)
+  		ben = users(:ben) #atallah follows ben
+  		mavrick = users(:mavrick) #atallah doesn't follow mav
+  		mavrick.microposts.each do |reposted_post|
+  			ben.reposts.create(micropost: reposted_post)
+  			assert atallah.feed.include?(reposted_post)
+  		end
+  		
   	end
 
 end
